@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: retailstore-pod
+  labels:
+    appName: retail-store
+    version: "1.0"
+spec:
+  containers:
+    - name: retailstore
+      image: rahulranjandocker/retailstore:1.1
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      env:
+        - name: distributor_host
+          valueFrom:
+            configMapKeyRef:
+              name: retailstorecm
+              key: distributorNetworkHost
+        - name: distributor_port
+          valueFrom:
+            configMapKeyRef:
+              name: retailstorecm
+              key: distributorNetworkPort
